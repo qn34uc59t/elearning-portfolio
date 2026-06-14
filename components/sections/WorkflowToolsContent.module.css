@@ -1,0 +1,57 @@
+.toolsGrid {
+  position: absolute;
+  top: 38%;
+  left: 3rem;
+  right: 3rem;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  transform: translateY(-50%);
+}
+
+.toolColumn {
+  min-width: 0;
+}
+
+.toolTitle {
+  margin-bottom: 1rem;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.toolDescription {
+  margin-bottom: 1rem;
+  max-width: 16.5rem;
+  min-height: calc(3 * 1.65em);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.toolList {
+  list-style: disc;
+  padding-left: 1.25rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.toolList li + li {
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 900px) {
+  .toolsGrid {
+    top: 34%;
+    left: 1.5rem;
+    right: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    transform: none;
+  }
+}

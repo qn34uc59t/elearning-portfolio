@@ -1,0 +1,151 @@
+.section {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #ffffff;
+  color: #000000;
+  --showcase-display-size: clamp(5.5rem, 13vw, 10.5rem);
+  --showcase-counter-size: calc(var(--showcase-display-size) * 0.46);
+}
+
+.counter {
+  position: absolute;
+  bottom: 2rem;
+  right: 3rem;
+  z-index: 2;
+  font-size: var(--showcase-counter-size);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.imageWrap {
+  flex: 1.15;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  max-height: min(52vh, 28rem);
+  background: #d9d9d9;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  max-width: 22rem;
+  padding-top: 0.5rem;
+  will-change: transform;
+}
+
+.panel {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 3rem;
+  width: 100vw;
+  height: 100%;
+  padding: 6rem 3rem 10rem;
+}
+
+.projectTitle {
+  margin-bottom: 1rem;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.projectDescription {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.exploreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: inherit;
+}
+
+.exploreLink:hover {
+  opacity: 0.65;
+}
+
+.sectionLabel {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  z-index: 2;
+  font-size: var(--showcase-display-size);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: var(--section-label-fade);
+  mask-image: var(--section-label-fade);
+}
+
+@media (max-width: 900px) {
+  .section {
+    --showcase-display-size: clamp(4rem, 20vw, 7rem);
+    --showcase-counter-size: calc(var(--showcase-display-size) * 0.46);
+  }
+
+  .counter {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+
+  .panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 7rem 1.5rem 9rem;
+  }
+
+  .imageWrap {
+    width: 100%;
+    max-height: none;
+  }
+
+  .info {
+    max-width: none;
+    padding-top: 0;
+  }
+
+  .sectionLabel {
+    left: 1.5rem;
+    bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,84 @@
+.section {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+}
+
+.arrows {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.arrow {
+  position: absolute;
+  color: #ffffff;
+  opacity: 0.08;
+}
+
+.arrowBottomRight {
+  right: -8%;
+  bottom: -12%;
+  width: min(52vw, 38rem);
+  height: auto;
+}
+
+.arrowTopLeft {
+  top: 6%;
+  left: 4%;
+  width: min(18vw, 9rem);
+  height: auto;
+  opacity: 0.05;
+}
+
+.arrowTopCenter {
+  top: -4%;
+  left: 38%;
+  width: min(22vw, 11rem);
+  height: auto;
+  opacity: 0.04;
+}
+
+.email {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2.25rem, 6.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
+}
+
+.email:hover {
+  opacity: 0.75;
+}
+
+.footer {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 900px) {
+  .email {
+    font-size: clamp(1.75rem, 9vw, 2.75rem);
+    white-space: normal;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .footer {
+    bottom: 1.5rem;
+    padding: 0 1.5rem;
+  }
+}

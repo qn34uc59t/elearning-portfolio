@@ -1,0 +1,49 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  transition: filter 0.55s ease;
+}
+
+.logoInverted {
+  filter: invert(1);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  opacity: 0.85;
+}
+
+.brandDark .title {
+  opacity: 0.85;
+}
+
+.brandLight .title {
+  opacity: 1;
+}
