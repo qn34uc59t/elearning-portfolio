@@ -2,12 +2,11 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import LivePreviewModal from "@/components/LivePreviewModal";
-import { GradientBackground4 } from "@/components/ui/gradient-background-4";
 import { usePortfolioTransition } from "@/context/PortfolioTransitionContext";
+import { markProjectEnterFromShowcase } from "@/lib/sectionTransition";
 import {
   SHOWCASE_PROJECTS,
   SHOWCASE_PROJECT_COUNT,
@@ -45,7 +44,6 @@ export default function ShowcaseSection({
   const hasEnteredRef = useRef(false);
   const animatingRef = useRef(false);
 
-  const router = useRouter();
   const { leaveSection } = usePortfolioTransition();
   const counterLabel = `${String(projectIndex + 1).padStart(2, "0")}/${String(SHOWCASE_PROJECT_COUNT).padStart(2, "0")}`;
   const [preview, setPreview] = useState<{ url: string; title: string } | null>(
@@ -53,8 +51,9 @@ export default function ShowcaseSection({
   );
 
   const navigateToCaseStudy = (href: string) => {
+    markProjectEnterFromShowcase();
     leaveSection("showcase", () => {
-      router.push(href);
+      window.location.assign(href);
     });
   };
 
@@ -211,7 +210,7 @@ export default function ShowcaseSection({
       aria-hidden={!isActive}
       data-section="showcase"
     >
-      <GradientBackground4 position="top" />
+      <div data-section-content>
       <div
         className={styles.counter}
         data-showcase-counter
@@ -291,6 +290,7 @@ export default function ShowcaseSection({
 
       <div className={styles.sectionLabel} aria-hidden="true">
         Case studies
+      </div>
       </div>
 
       <LivePreviewModal

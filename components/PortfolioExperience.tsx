@@ -22,7 +22,6 @@ import { SHOWCASE_PROJECT_COUNT } from "@/data/showcaseProjects";
 import { WORKFLOW_STEPS } from "@/data/workflowSteps";
 import {
   INITIAL_VIEW,
-  isDarkToDarkTransition,
   isSameView,
   headerVariantFromView,
   navIdFromView,
@@ -47,11 +46,13 @@ gsap.registerPlugin(Observer, useGSAP);
 
 const NAV_COOLDOWN_MS = 1200;
 
-function getSectionElement(
+function getSectionContentElement(
   container: HTMLDivElement | null,
   section: SectionId
 ) {
-  return container?.querySelector(`[data-section="${section}"]`);
+  return container?.querySelector(
+    `[data-section="${section}"] [data-section-content]`
+  );
 }
 
 function setLayerVisibility(
@@ -59,9 +60,9 @@ function setLayerVisibility(
   activeSection: SectionId
 ) {
   (["hero", "showcase", "workflow", "contact"] as const).forEach((section) => {
-    const layer = getSectionElement(container, section);
-    if (!layer) return;
-    gsap.set(layer, { opacity: section === activeSection ? 1 : 0 });
+    const content = getSectionContentElement(container, section);
+    if (!content) return;
+    gsap.set(content, { opacity: section === activeSection ? 1 : 0 });
   });
 }
 
@@ -103,18 +104,14 @@ export default function PortfolioExperience() {
 
       beginNavigation();
 
-      const outgoing = getSectionElement(containerRef.current, current.section);
+      const outgoing = getSectionContentElement(
+        containerRef.current,
+        current.section
+      );
 
       if (!outgoing) {
         endNavigation();
         return false;
-      }
-
-      const container = containerRef.current;
-      const useBlackBackdrop = isDarkToDarkTransition(current, next);
-
-      if (useBlackBackdrop && container) {
-        gsap.set(container, { backgroundColor: "#000000" });
       }
 
       gsap.to(outgoing, {
@@ -126,23 +123,17 @@ export default function PortfolioExperience() {
           setView(next);
 
           requestAnimationFrame(() => {
-            const incoming = getSectionElement(
+            const incoming = getSectionContentElement(
               containerRef.current,
               next.section
             );
 
             if (!incoming) {
-              if (useBlackBackdrop && container) {
-                gsap.set(container, { clearProps: "backgroundColor" });
-              }
               endNavigation();
               return;
             }
 
             runSectionFadeIn(incoming, () => {
-              if (useBlackBackdrop && container) {
-                gsap.set(container, { clearProps: "backgroundColor" });
-              }
               if (next.section !== "workflow") {
                 endNavigation();
               }
@@ -205,7 +196,9 @@ export default function PortfolioExperience() {
       if (isSameView(current, target)) return;
 
       if (force && isTransitioningRef.current) {
-        const sections = containerRef.current?.querySelectorAll("[data-section]");
+        const sections = containerRef.current?.querySelectorAll(
+          "[data-section-content]"
+        );
         if (sections?.length) {
           gsap.killTweensOf(sections);
         }
@@ -250,7 +243,10 @@ export default function PortfolioExperience() {
         return;
       }
 
-      const outgoing = getSectionElement(containerRef.current, section);
+      const outgoing = getSectionContentElement(
+        containerRef.current,
+        section
+      );
       if (!outgoing) {
         onComplete();
         return;
@@ -392,7 +388,7 @@ export default function PortfolioExperience() {
         enterSection === "contact")
     ) {
       pendingEnterFadeRef.current = enterSection;
-      const incoming = getSectionElement(
+      const incoming = getSectionContentElement(
         containerRef.current,
         enterSection
       );
@@ -408,7 +404,7 @@ export default function PortfolioExperience() {
     const section = pendingEnterFadeRef.current;
     pendingEnterFadeRef.current = null;
 
-    const incoming = getSectionElement(containerRef.current, section);
+    const incoming = getSectionContentElement(containerRef.current, section);
     runSectionFadeIn(incoming);
   }, []);
 

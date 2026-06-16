@@ -2,7 +2,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  color: #000000;
+  color: var(--color-white);
   --showcase-display-size: clamp(5.5rem, 13vw, 10.5rem);
   --showcase-counter-size: calc(var(--showcase-display-size) * 0.46);
 }

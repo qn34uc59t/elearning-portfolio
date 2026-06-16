@@ -11,11 +11,11 @@ export default function BrandMark({ variant = "light" }: BrandMarkProps) {
       className={`${styles.brand} ${variant === "dark" ? styles.brandDark : styles.brandLight}`}
     >
       <Image
-        src="/logo_black.png"
+        src={variant === "dark" ? "/logo_nvzhn-light.png" : "/logo_nvzhn.png"}
         alt="Illia Neviezhyn"
         width={56}
         height={56}
-        className={`${styles.logo} ${variant === "dark" ? styles.logoInverted : ""}`}
+        className={styles.logo}
         priority
       />
       <div className={styles.text}>

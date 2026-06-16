@@ -46,38 +46,49 @@ Case study pages use the shared `SiteHeader` via `ProjectsPageShell`.
 
 ---
 
-## 2. Dotted pattern on black sections
+## 2. Purple grid background on dark sections
 
-Every **dark/black surface** on a case study must use the same dot-grid texture.
+Dark sections on case study pages use the same **grid + noise + spotlight** background as the main portfolio, but in **purple** instead of blue.
 
-### CSS pattern
+### How it works
 
-Apply this shared dark-surface treatment (from `ProjectCaseStudy.module.css`):
+- **Component:** `components/ui/background-snippets-noise-effect11.tsx`
+- **Project pages:** `ProjectsPageShell` renders the purple variant inside the fade-in wrapper so transparent dark sections composite correctly (opacity animation on an outer wrapper would otherwise turn them solid black).
+- **Main portfolio:** `SiteBackgroundLayer` renders the blue variant at the root layout level.
+- Dark sections (hero, process, result, closing, footer) use `background: transparent` so the grid shows through.
+- Light content sections keep `background: var(--color-white)` so body copy stays readable.
+
+### Dark-surface CSS
+
+Apply this shared dark-surface treatment (from `ProjectCaseStudy.module.css` and sibling case study modules):
 
 ```css
-background-color: #000000;
-background-image: radial-gradient(rgba(255, 255, 255, 0.15) 5%, transparent 0);
-background-size: 30px 30px;
-background-attachment: fixed;
-color: #ffffff;
+.heroDark,
+.processSection,
+.resultSection,
+.footer {
+  background: transparent;
+  color: var(--color-white);
+}
 ```
 
 ### Where it applies
 
-Use on all black sections for a given page, for example:
+Use on all dark sections for a given page, for example:
 
 - Dark hero (`.heroDark`)
 - Dark process block (`.processSection`)
-- Dark result block (`.resultSection`)
+- Dark result / closing block (`.resultSection` or `.closing`)
 - Footer (`.footer`)
 
-Any new dark section on a case study page must include this pattern. Do not use plain `#000` without the dots.
+Any new dark section on a case study page must stay transparent. Do not add a solid black fill or the old white dot-grid pattern.
 
 ### Notes
 
-- Dots are subtle white at **15% opacity**.
-- Grid spacing: **30px × 30px**.
-- `background-attachment: fixed` keeps the grid stable while scrolling.
+- Base color: `#020617` (slate-950), matching the main site.
+- Purple spotlight: `rgba(124, 58, 237, 0.35)` at the top center.
+- Grid lines: `#a78bfa1f` with a top fade mask.
+- Animated noise overlay matches the main portfolio background.
 
 ---
 

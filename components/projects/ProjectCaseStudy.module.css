@@ -3,8 +3,17 @@
   min-height: 100vh;
   padding-top: 5.5rem;
   overflow-x: clip;
-  background: #ffffff;
-  color: #000000;
+  background: transparent;
+  color: var(--color-black);
+}
+
+/* ─── Light surfaces ────────────────────────────────────── */
+
+.hero:not(.heroDark),
+.contextSection,
+.highlightsSection,
+.toolsSection {
+  background: var(--color-white);
 }
 
 /* ─── Dark surfaces ─────────────────────────────────────── */
@@ -13,11 +22,8 @@
 .processSection,
 .resultSection,
 .footer {
-  background-color: #000000;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 5%, transparent 0);
-  background-size: 30px 30px;
-  background-attachment: fixed;
-  color: #ffffff;
+  background: transparent;
+  color: var(--color-white);
 }
 
 /* ─── Hero ──────────────────────────────────────────────── */

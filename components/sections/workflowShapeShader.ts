@@ -18,7 +18,7 @@ export const FRAGMENT_SHADER = `
 
   #define PI 3.14159265359
   #define TAU 6.28318530718
-  #define MAX_STEPS 72
+  #define MAX_STEPS 80
   #define MAX_DIST 40.0
   #define SURF_DIST 0.001
 
@@ -26,6 +26,10 @@ export const FRAGMENT_SHADER = `
     float s = sin(a);
     float c = cos(a);
     return mat2(c, -s, s, c);
+  }
+
+  float hash(float n) {
+    return fract(sin(n) * 43758.5453123);
   }
 
   float sdSphere(vec3 p, float r) {
@@ -126,6 +130,20 @@ export const FRAGMENT_SHADER = `
     return t;
   }
 
+  // Nebula + stars environment from the original PRISM snippet.
+  vec3 getBackground(vec3 rd) {
+    float stars = 0.0;
+    vec3 starP = rd * 100.0;
+    float h = hash(dot(starP, vec3(12.9898, 78.233, 54.53)));
+    if (h > 0.98) stars = pow(h - 0.98, 10.0) * 20.0;
+
+    vec3 nebula = vec3(0.0);
+    nebula += vec3(0.3, 0.15, 0.5) * pow(max(0.0, sin(rd.x * 2.0 + uTime * 0.1)), 3.0) * 0.2;
+    nebula += vec3(0.15, 0.3, 0.6) * pow(max(0.0, sin(rd.y * 2.5 + uTime * 0.05)), 3.0) * 0.2;
+
+    return stars + nebula;
+  }
+
   void main() {
     vec2 uv = (gl_FragCoord.xy - 0.5 * uResolution) / min(uResolution.x, uResolution.y);
 
@@ -147,24 +165,55 @@ export const FRAGMENT_SHADER = `
     vec3 normal = getNormal(p);
     vec3 viewDir = normalize(ro - p);
 
-    vec3 keyDir = normalize(vec3(0.5, 0.85, 0.6));
-    vec3 fillDir = normalize(vec3(-0.6, -0.1, 0.4));
+    float fresnel = pow(1.0 - max(dot(viewDir, normal), 0.0), 3.0);
 
-    float key = max(dot(normal, keyDir), 0.0);
-    float fill = max(dot(normal, fillDir), 0.0);
+    vec3 color = vec3(0.0);
+    float ior = 1.5;
+    vec3 refractDir = refract(rd, normal, 1.0 / ior);
 
-    float ambient = 0.55;
-    vec3 base = vec3(0.4, 0.2, 0.933);
-    vec3 color = base * (ambient + (1.0 - ambient) * key);
-    color += vec3(0.12, 0.06, 0.28) * fill;
+    if (length(refractDir) > 0.0) {
+      float t2 = raymarch(p - normal * 0.01, refractDir);
 
-    vec3 halfDir = normalize(keyDir + viewDir);
-    float spec = pow(max(dot(normal, halfDir), 0.0), 70.0);
-    color += spec * vec3(1.0) * 0.7;
+      if (t2 < MAX_DIST) {
+        vec3 p2 = p - normal * 0.01 + refractDir * t2;
+        vec3 normal2 = getNormal(p2);
 
-    float fresnel = pow(1.0 - max(dot(viewDir, normal), 0.0), 2.5);
-    color = mix(color, vec3(0.55, 0.35, 0.95), fresnel * 0.6);
-    color += fresnel * vec3(0.1, 0.05, 0.2);
+        vec3 r = refract(refractDir, -normal2, ior - 0.2);
+        vec3 g = refract(refractDir, -normal2, ior);
+        vec3 b = refract(refractDir, -normal2, ior + 0.2);
+
+        vec3 bgR = getBackground(r) * vec3(1.4, 0.7, 0.7);
+        vec3 bgG = getBackground(g) * vec3(0.7, 1.4, 0.8);
+        vec3 bgB = getBackground(b) * vec3(0.7, 0.8, 1.4);
+
+        color = vec3(bgR.x, bgG.y, bgB.z);
+        color = pow(color, vec3(0.7)) * 5.0;
+      } else {
+        color = getBackground(refractDir) * 2.0;
+      }
+    }
+
+    vec3 lightDir = normalize(vec3(1.0, 1.0, -1.0));
+    vec3 halfDir = normalize(lightDir + viewDir);
+    float spec = pow(max(dot(normal, halfDir), 0.0), 150.0);
+    color += spec * vec3(1.0) * 3.5;
+
+    vec3 fresnelColor = vec3(
+      0.5 + 0.5 * sin(fresnel * TAU + uTime),
+      0.5 + 0.5 * sin(fresnel * TAU + uTime + TAU / 3.0),
+      0.5 + 0.5 * sin(fresnel * TAU + uTime + TAU * 2.0 / 3.0)
+    );
+    color += fresnel * fresnelColor * 1.2;
+
+    float edge = pow(1.0 - abs(dot(viewDir, normal)), 4.0);
+    color += edge * vec3(0.6, 0.7, 1.0) * 0.7;
+
+    float sss = pow(max(dot(-normal, lightDir), 0.0), 2.0);
+    color += sss * vec3(1.0, 0.6, 0.8) * 0.5;
+
+    color *= vec3(0.96, 0.99, 1.06);
+    color = pow(color, vec3(0.88));
+    color *= 1.12;
 
     color = clamp(color, 0.0, 1.0);
     gl_FragColor = vec4(color, 1.0);

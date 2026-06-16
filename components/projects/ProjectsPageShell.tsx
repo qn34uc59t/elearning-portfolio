@@ -10,6 +10,7 @@ import {
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SiteHeader from "@/components/layout/SiteHeader";
+import BackgroundSnippetsNoiseEffect11 from "@/components/ui/background-snippets-noise-effect11";
 import { PortfolioNavigationContext } from "@/context/PortfolioNavigationContext";
 import {
   markPortfolioEnterSection,
@@ -21,6 +22,7 @@ import {
   navIdToView,
   type NavId,
 } from "@/lib/portfolioNavigation";
+import styles from "./ProjectsPageShell.module.css";
 
 gsap.registerPlugin(useGSAP);
 
@@ -96,7 +98,13 @@ export default function ProjectsPageShell({
   return (
     <PortfolioNavigationContext.Provider value={navigationValue}>
       <SiteHeader variant={headerVariant} persistent />
-      <div ref={contentRef}>{children}</div>
+      <BackgroundSnippetsNoiseEffect11
+        variant="purple"
+        className="pointer-events-none fixed inset-0 z-0"
+      />
+      <div ref={contentRef} className={styles.content}>
+        <div className="relative z-[1]">{children}</div>
+      </div>
     </PortfolioNavigationContext.Provider>
   );
 }

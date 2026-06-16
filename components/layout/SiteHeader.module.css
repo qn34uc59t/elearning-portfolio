@@ -25,21 +25,21 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0)
+    rgba(var(--color-white-rgb), 0.7),
+    rgba(var(--color-white-rgb), 0)
   );
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   -webkit-mask-image: linear-gradient(
     to bottom,
-    #000 0%,
-    #000 55%,
+    var(--color-black) 0%,
+    var(--color-black) 55%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
-    #000 0%,
-    #000 55%,
+    var(--color-black) 0%,
+    var(--color-black) 55%,
     transparent 100%
   );
   transition: opacity 0.45s ease;
@@ -90,7 +90,7 @@
 }
 
 .headerDark {
-  color: #ffffff;
+  color: var(--color-white);
 }
 
 @media (max-width: 900px) {

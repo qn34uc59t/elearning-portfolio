@@ -69,21 +69,8 @@ export function navIdToView(id: NavId): ViewState {
   }
 }
 
-export function headerVariantFromView(view: ViewState): "light" | "dark" {
-  if (view.section === "contact") return "dark";
-  if (view.section === "workflow" && view.workflowView === "tools") return "dark";
-  return "light";
-}
-
-function isDarkView(view: ViewState) {
-  return (
-    view.section === "contact" ||
-    (view.section === "workflow" && view.workflowView === "tools")
-  );
-}
-
-export function isDarkToDarkTransition(from: ViewState, to: ViewState) {
-  return isDarkView(from) && isDarkView(to);
+export function headerVariantFromView(_view: ViewState): "light" | "dark" {
+  return "dark";
 }
 
 export function viewToHash(view: ViewState): string {

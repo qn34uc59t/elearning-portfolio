@@ -5,6 +5,11 @@ export const SECTION_FADE_IN_DURATION = 0.65;
 export const SECTION_FADE_EASE = "power2.inOut";
 
 export const PORTFOLIO_ENTER_SECTION_KEY = "portfolio-enter-section";
+export const PROJECT_ENTER_FROM_SHOWCASE_KEY = "project-enter-from-showcase";
+
+export function markProjectEnterFromShowcase() {
+  sessionStorage.setItem(PROJECT_ENTER_FROM_SHOWCASE_KEY, "1");
+}
 
 export function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -3,20 +3,26 @@
   min-height: 100vh;
   padding-top: 5.5rem;
   overflow-x: clip;
-  background: #ffffff;
-  color: #000000;
+  background: transparent;
+  color: var(--color-black);
 }
 
-/* ─── Dark surfaces (dotted pattern per case-study conventions) ─── */
+/* ─── Light surfaces ────────────────────────────────────── */
+
+.section,
+.figure,
+.figurePair,
+.toolsBar {
+  background: var(--color-white);
+}
+
+/* ─── Dark surfaces ─────────────────────────────────────── */
 
 .heroDark,
 .closing,
 .footer {
-  background-color: #000000;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 5%, transparent 0);
-  background-size: 30px 30px;
-  background-attachment: fixed;
-  color: #ffffff;
+  background: transparent;
+  color: var(--color-white);
 }
 
 /* ─── Hero (matches project 2) ──────────────────────────── */
@@ -124,7 +130,7 @@
 }
 
 .sectionHeadDark {
-  border-top-color: rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(var(--color-white-rgb), 0.22);
 }
 
 /* ─── 01 Overview ───────────────────────────────────────── */
@@ -310,7 +316,7 @@
 }
 
 .note {
-  border-top: 2px solid #000000;
+  border-top: 2px solid var(--color-black);
   padding-top: 1.25rem;
 }
 

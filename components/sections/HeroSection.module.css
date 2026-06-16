@@ -5,7 +5,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  color: #000000;
+  color: var(--color-white);
 }
 
 .heroContent {

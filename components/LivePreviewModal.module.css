@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(var(--color-black-rgb), 0.72);
 }
 
 .dialog {
@@ -15,7 +15,7 @@
   aspect-ratio: 16 / 9;
   border-radius: 30px;
   overflow: hidden;
-  background: #000000;
+  background: var(--color-black);
 }
 
 .dialogDocument {
@@ -35,8 +35,8 @@
   height: 2.25rem;
   border: none;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  color: #ffffff;
+  background: rgba(var(--color-black-rgb), 0.45);
+  color: var(--color-white);
   font-size: 1.375rem;
   line-height: 1;
   cursor: pointer;
@@ -44,7 +44,7 @@
 }
 
 .closeButton:hover {
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(var(--color-black-rgb), 0.72);
 }
 
 .frame {

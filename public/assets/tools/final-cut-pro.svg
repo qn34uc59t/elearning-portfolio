@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="fcp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b4cff"/><stop offset="1" stop-color="#7b2bff"/></linearGradient></defs><rect width="128" height="128" rx="28" fill="url(#fcp)"/><path fill="#fff" d="M46 38h36c5.5 0 10 4.5 10 10v32c0 5.5-4.5 10-10 10H46c-5.5 0-10-4.5-10-10V48c0-5.5 4.5-10 10-10zm6 12v28l24-14-24-14z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="26" fill="#1C1C1E"/>
+  <path fill="#FF2D92" d="M18 88c18-10 34-24 46-42 8-12 14-26 18-40 0 18-6 36-16 52-10 16-26 28-48 30z"/>
+  <path fill="#BF5AF2" d="M30 92c16-8 30-20 40-36 8-12 14-26 16-40-2 16-8 30-18 42-10 12-24 22-38 34z"/>
+  <path fill="#FF6B35" d="M42 94c14-6 26-16 34-30 6-10 10-22 12-34-4 14-10 26-20 36-10 10-22 18-26 28z"/>
+  <path fill="#FFD60A" d="M54 96c12-4 22-12 28-24 4-8 6-18 8-28-6 12-14 22-24 30-10 8-18 14-12 22z"/>
+  <path fill="#32D74B" d="M66 98c10-2 18-8 22-18 2-6 4-14 4-22-4 10-10 18-18 24-8 6-14 10-8 16z"/>
+  <circle cx="98" cy="34" r="3.5" fill="#8E8E93"/>
+  <circle cx="98" cy="48" r="3.5" fill="#8E8E93"/>
+  <circle cx="98" cy="62" r="3.5" fill="#8E8E93"/>
+  <circle cx="98" cy="76" r="3.5" fill="#8E8E93"/>
+  <circle cx="98" cy="90" r="3.5" fill="#8E8E93"/>
+</svg>

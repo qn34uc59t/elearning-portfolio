@@ -8,16 +8,43 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-white: #fafafa;
+  --color-black: #1f1f1f;
+  --color-white-rgb: 250, 250, 250;
+  --color-black-rgb: 31, 31, 31;
+  --content-left: 52%;
+  --content-width: min(32rem, 42vw);
+  --section-label-fade: linear-gradient(
+    to bottom,
+    var(--color-white) 0%,
+    var(--color-white) 72%,
+    transparent 100%
+  );
+}
+
+html:not([data-project-page]):not(:has([data-project-route])),
+html:not([data-project-page]):not(:has([data-project-route])) body {
+  background: #020617;
+  color: var(--color-white);
+}
+
+html[data-project-page],
+html[data-project-page] body,
+html:has([data-project-route]),
+html:has([data-project-route]) body {
+  background: transparent;
+  color: var(--color-black);
+}
+
 html,
 body {
   width: 100%;
   max-width: 100%;
-  background: #ffffff;
-  color: #000000;
 }
 
-html:not([data-project-page]),
-html:not([data-project-page]) body {
+html:not([data-project-page]):not(:has([data-project-route])),
+html:not([data-project-page]):not(:has([data-project-route])) body {
   position: fixed;
   inset: 0;
   overflow: clip;
@@ -25,7 +52,8 @@ html:not([data-project-page]) body {
   overscroll-behavior: none;
 }
 
-html[data-project-page] {
+html[data-project-page],
+html:has([data-project-route]) {
   position: static;
   overflow-x: clip;
   overflow-y: auto;
@@ -33,7 +61,8 @@ html[data-project-page] {
   height: auto;
 }
 
-html[data-project-page] body {
+html[data-project-page] body,
+html:has([data-project-route]) body {
   position: static;
   overflow: visible;
   height: auto;
@@ -41,15 +70,9 @@ html[data-project-page] body {
   overscroll-behavior: none;
 }
 
-:root {
-  --content-left: 52%;
-  --content-width: min(32rem, 42vw);
-  --section-label-fade: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 72%,
-    transparent 100%
-  );
+[data-section-content] {
+  position: absolute;
+  inset: 0;
 }
 
 body {

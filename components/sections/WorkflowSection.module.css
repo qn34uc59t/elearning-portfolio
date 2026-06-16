@@ -5,32 +5,17 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  color: #000000;
-  transition:
-    background-color 0.55s ease,
-    color 0.55s ease;
+  color: var(--color-white);
+  transition: color 0.55s ease;
 }
 
 .sectionDark {
-  color: #ffffff;
+  color: var(--color-white);
 }
 
 .section [data-tools-content] {
   display: none;
   opacity: 0;
-}
-
-.toolsLogoWatermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;
-  width: auto;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  opacity: 0.03;
-  pointer-events: none;
-  user-select: none;
 }
 
 .stepContent {
@@ -68,14 +53,14 @@
   max-width: calc(100% - 6rem);
   height: 0.55rem;
   overflow: hidden;
-  background: #e8e8e8;
+  background: rgba(var(--color-white-rgb), 0.14);
   opacity: 0;
 }
 
 .progressFill {
   width: 0;
   height: 100%;
-  background: #6633ee;
+  background: #2563eb;
   transform-origin: left center;
 }
 
