@@ -1,0 +1,67 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.dialog {
+  position: relative;
+  width: min(72rem, 100%);
+  aspect-ratio: 16 / 9;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #000000;
+}
+
+.dialogDocument {
+  aspect-ratio: auto;
+  height: min(90vh, 56rem);
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 900px) {
+  .backdrop {
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .dialog {
+    width: 100%;
+    border-radius: 20px;
+  }
+}

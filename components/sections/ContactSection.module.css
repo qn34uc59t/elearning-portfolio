@@ -2,56 +2,36 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #000000;
   color: #ffffff;
 }
 
-.arrows {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.arrow {
-  position: absolute;
-  color: #ffffff;
-  opacity: 0.08;
-}
-
-.arrowBottomRight {
-  right: -8%;
-  bottom: -12%;
-  width: min(52vw, 38rem);
-  height: auto;
-}
-
-.arrowTopLeft {
-  top: 6%;
-  left: 4%;
-  width: min(18vw, 9rem);
-  height: auto;
-  opacity: 0.05;
-}
-
-.arrowTopCenter {
-  top: -4%;
-  left: 38%;
-  width: min(22vw, 11rem);
-  height: auto;
-  opacity: 0.04;
-}
-
-.email {
+.content {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.email {
   font-size: clamp(2.25rem, 6.5vw, 5rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
+  color: #ffffff;
   text-decoration: none;
   white-space: nowrap;
   transition: opacity 0.25s ease;
@@ -59,6 +39,15 @@
 
 .email:hover {
   opacity: 0.75;
+}
+
+.meta {
+  margin-top: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  opacity: 0.55;
 }
 
 .footer {
@@ -70,11 +59,18 @@
 }
 
 @media (max-width: 900px) {
+  .content {
+    width: min(100%, 24rem);
+    padding: 0 1.5rem;
+  }
+
   .email {
     font-size: clamp(1.75rem, 9vw, 2.75rem);
     white-space: normal;
-    text-align: center;
-    padding: 0 1.5rem;
+  }
+
+  .meta {
+    font-size: 0.875rem;
   }
 
   .footer {

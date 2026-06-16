@@ -17,6 +17,7 @@ import ShowcaseSection from "@/components/sections/ShowcaseSection";
 import WorkflowSection from "@/components/sections/WorkflowSection";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { PortfolioNavigationContext } from "@/context/PortfolioNavigationContext";
+import { PortfolioTransitionContext } from "@/context/PortfolioTransitionContext";
 import { SHOWCASE_PROJECT_COUNT } from "@/data/showcaseProjects";
 import { WORKFLOW_STEPS } from "@/data/workflowSteps";
 import {
@@ -32,6 +33,14 @@ import {
   type SectionId,
   type ViewState,
 } from "@/lib/portfolioNavigation";
+import {
+  SECTION_FADE_IN_DURATION,
+  SECTION_FADE_OUT_DURATION,
+  SECTION_FADE_EASE,
+  consumePortfolioEnterSection,
+  runSectionFadeIn,
+  runSectionFadeOut,
+} from "@/lib/sectionTransition";
 import styles from "./PortfolioExperience.module.css";
 
 gsap.registerPlugin(Observer, useGSAP);
@@ -64,6 +73,7 @@ export default function PortfolioExperience() {
   const skipHashSyncRef = useRef(true);
   const lastNavTimeRef = useRef(0);
   const viewRef = useRef(view);
+  const pendingEnterFadeRef = useRef<SectionId | null>(null);
   viewRef.current = view;
 
   const canNavigate = useCallback((force = false) => {
@@ -109,8 +119,8 @@ export default function PortfolioExperience() {
 
       gsap.to(outgoing, {
         opacity: 0,
-        duration: 0.55,
-        ease: "power2.inOut",
+        duration: SECTION_FADE_OUT_DURATION,
+        ease: SECTION_FADE_EASE,
         onComplete: () => {
           viewRef.current = next;
           setView(next);
@@ -129,23 +139,14 @@ export default function PortfolioExperience() {
               return;
             }
 
-            gsap.fromTo(
-              incoming,
-              { opacity: 0 },
-              {
-                opacity: 1,
-                duration: 0.65,
-                ease: "power2.inOut",
-                onComplete: () => {
-                  if (useBlackBackdrop && container) {
-                    gsap.set(container, { clearProps: "backgroundColor" });
-                  }
-                  if (next.section !== "workflow") {
-                    endNavigation();
-                  }
-                },
+            runSectionFadeIn(incoming, () => {
+              if (useBlackBackdrop && container) {
+                gsap.set(container, { clearProps: "backgroundColor" });
               }
-            );
+              if (next.section !== "workflow") {
+                endNavigation();
+              }
+            });
           });
         },
       });
@@ -239,6 +240,29 @@ export default function PortfolioExperience() {
       goToView(navIdToView(id), true);
     },
     [goToView]
+  );
+
+  const leaveSection = useCallback(
+    (section: SectionId, onComplete: () => void) => {
+      const current = viewRef.current;
+      if (current.section !== section) {
+        onComplete();
+        return;
+      }
+
+      const outgoing = getSectionElement(containerRef.current, section);
+      if (!outgoing) {
+        onComplete();
+        return;
+      }
+
+      beginNavigation();
+      runSectionFadeOut(outgoing, () => {
+        endNavigation();
+        onComplete();
+      });
+    },
+    [beginNavigation, endNavigation]
   );
 
   const navigate = useCallback(
@@ -353,9 +377,39 @@ export default function PortfolioExperience() {
 
   useLayoutEffect(() => {
     const restored = parseHash(window.location.hash);
+    const enterSection = consumePortfolioEnterSection();
+
     viewRef.current = restored;
     setView(restored);
     setLayerVisibility(containerRef.current, restored.section);
+
+    if (
+      enterSection &&
+      enterSection === restored.section &&
+      (enterSection === "hero" ||
+        enterSection === "showcase" ||
+        enterSection === "workflow" ||
+        enterSection === "contact")
+    ) {
+      pendingEnterFadeRef.current = enterSection;
+      const incoming = getSectionElement(
+        containerRef.current,
+        enterSection
+      );
+      if (incoming) {
+        gsap.set(incoming, { opacity: 0 });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!pendingEnterFadeRef.current) return;
+
+    const section = pendingEnterFadeRef.current;
+    pendingEnterFadeRef.current = null;
+
+    const incoming = getSectionElement(containerRef.current, section);
+    runSectionFadeIn(incoming);
   }, []);
 
   useLayoutEffect(() => {
@@ -384,6 +438,20 @@ export default function PortfolioExperience() {
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [goToView]);
+
+  useEffect(() => {
+    const blockNativeScroll = (event: WheelEvent) => {
+      if (document.documentElement.dataset.projectPage) return;
+      event.preventDefault();
+    };
+
+    document.addEventListener("wheel", blockNativeScroll, {
+      passive: false,
+      capture: true,
+    });
+    return () =>
+      document.removeEventListener("wheel", blockNativeScroll, { capture: true });
+  }, []);
 
   useGSAP(
     () => {
@@ -416,10 +484,18 @@ export default function PortfolioExperience() {
     [view, goToNav]
   );
 
+  const transitionValue = useMemo(
+    () => ({
+      leaveSection,
+    }),
+    [leaveSection]
+  );
+
   const headerVariant = headerVariantFromView(view);
 
   return (
     <PortfolioNavigationContext.Provider value={navigationValue}>
+      <PortfolioTransitionContext.Provider value={transitionValue}>
       <div ref={containerRef} className={styles.experience}>
         <SiteHeader variant={headerVariant} persistent />
 
@@ -460,6 +536,7 @@ export default function PortfolioExperience() {
           <ContactSection />
         </div>
       </div>
+      </PortfolioTransitionContext.Provider>
     </PortfolioNavigationContext.Provider>
   );
 }

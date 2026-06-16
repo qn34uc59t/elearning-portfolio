@@ -1,0 +1,525 @@
+.page {
+  --pp: 3rem; /* page padding */
+  min-height: 100vh;
+  padding-top: 5.5rem;
+  overflow-x: clip;
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ─── Dark surfaces (dotted pattern per case-study conventions) ─── */
+
+.heroDark,
+.closing,
+.footer {
+  background-color: #000000;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 5%, transparent 0);
+  background-size: 30px 30px;
+  background-attachment: fixed;
+  color: #ffffff;
+}
+
+/* ─── Hero (matches project 2) ──────────────────────────── */
+
+.hero {
+  padding: 2rem var(--pp) 0;
+}
+
+.heroDark {
+  margin-top: calc(-1 * 5.5rem);
+  padding: calc(5.5rem + 5rem) var(--pp) 4rem;
+}
+
+.heroDark .eyebrow {
+  opacity: 0.6;
+}
+
+.heroDark .tagline {
+  opacity: 0.75;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 2rem;
+  align-items: end;
+  min-height: min(88vh, 52rem);
+}
+
+.heroInnerNoMedia {
+  grid-template-columns: 1fr;
+  min-height: auto;
+}
+
+.heroContent {
+  padding-bottom: 3.5rem;
+}
+
+.eyebrow {
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.tagline {
+  margin-bottom: 2rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  max-width: 26rem;
+  opacity: 0.72;
+}
+
+.livePreview {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.livePreview:hover {
+  opacity: 0.55;
+}
+
+/* ─── Section scaffolding ───────────────────────────────── */
+
+.section {
+  padding: 5.5rem var(--pp);
+}
+
+.sectionHead {
+  margin: 0 0 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8e8e8;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.sectionHeadDark {
+  border-top-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ─── 01 Overview ───────────────────────────────────────── */
+
+.leadGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.lead {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.leadSecondary {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  opacity: 0.7;
+  padding-top: 0.4rem;
+}
+
+/* ─── Figures ───────────────────────────────────────────── */
+
+.figure {
+  margin: 0;
+}
+
+.figureImg {
+  display: block;
+  width: 100%;
+  height: min(72vh, 46rem);
+  object-fit: cover;
+  background: #f2f2f2;
+}
+
+.figureCap {
+  display: none;
+}
+
+.figurePair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem var(--pp) 1rem;
+}
+
+.figurePairItem {
+  margin: 0;
+}
+
+.figPortrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #f2f2f2;
+}
+
+.figLandscape {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #f2f2f2;
+}
+
+.figureCapInline {
+  display: none;
+}
+
+/* ─── 02 The brief ──────────────────────────────────────── */
+
+.briefGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.creditList {
+  margin: 0;
+}
+
+.creditRow {
+  padding: 0 0 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.creditRow:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.creditLabel {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.creditValue {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.briefBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.briefTitle {
+  margin-bottom: 1rem;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.briefText {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  opacity: 0.82;
+  max-width: 42rem;
+}
+
+/* ─── 03 Process ────────────────────────────────────────── */
+
+.processList {
+  list-style: none;
+}
+
+.processRow {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 0 3rem;
+  align-items: baseline;
+  padding: 2.5rem 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.processRow:last-child {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.processTitle {
+  margin-bottom: 0;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.processBody {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  opacity: 0.75;
+  max-width: 34rem;
+}
+
+/* ─── 04 Highlights ─────────────────────────────────────── */
+
+.notesGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.note {
+  border-top: 2px solid #000000;
+  padding-top: 1.25rem;
+}
+
+.noteTitle {
+  margin-bottom: 0.85rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.noteText {
+  font-size: 0.975rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  opacity: 0.78;
+}
+
+/* ─── Tools ─────────────────────────────────────────────── */
+
+.toolsBar {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 3.5rem var(--pp);
+  border-top: 1px solid #e8e8e8;
+}
+
+.toolsLabel {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.toolsRow {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.tool {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.toolIcon {
+  display: block;
+  width: 1.85rem;
+  height: 1.85rem;
+  object-fit: contain;
+}
+
+.toolIconWide {
+  width: 4rem;
+  height: 1.4rem;
+}
+
+.toolName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ─── 05 Result ─────────────────────────────────────────── */
+
+.closing {
+  padding: 6rem var(--pp) 7rem;
+  text-align: center;
+}
+
+.closing .sectionHead {
+  padding-top: 0;
+  border-top: none;
+  text-align: center;
+}
+
+.closingText {
+  margin: 0 auto;
+  max-width: 44rem;
+  font-size: clamp(1.625rem, 2.8vw, 2.375rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4.5rem var(--pp) 5.5rem;
+}
+
+.footerBrand {
+  flex: 0 0 auto;
+}
+
+.footerNav,
+.footerNavSpacer {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.footerNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.25s ease;
+}
+
+.footerNav:hover {
+  opacity: 0.65;
+}
+
+.footerNavPrev {
+  justify-content: flex-start;
+}
+
+.footerNavNext {
+  justify-content: flex-end;
+}
+
+.footerArrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ─── Mobile ────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .page {
+    --pp: 1.5rem;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .heroContent {
+    padding-bottom: 0;
+  }
+
+  .leadGrid,
+  .briefGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .figureImg {
+    height: min(60vw, 22rem);
+  }
+
+  .figurePair {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .processRow {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .processBody {
+    max-width: none;
+  }
+
+  .notesGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .toolsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.75rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .footerBrand {
+    flex: none;
+  }
+
+  .footerNavPrev,
+  .footerNavNext {
+    justify-content: center;
+  }
+}

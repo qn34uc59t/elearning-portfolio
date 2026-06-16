@@ -3,7 +3,10 @@
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import WorkflowShapeCanvas from "@/components/sections/WorkflowShapeCanvas";
 import WorkflowToolsContent from "@/components/sections/WorkflowToolsContent";
+import { GradientBackground4 } from "@/components/ui/gradient-background-4";
+import { Hero } from "@/components/ui/tailwind-css-background-snippet";
 import { WORKFLOW_STEPS } from "@/data/workflowSteps";
 import styles from "./WorkflowSection.module.css";
 
@@ -62,8 +65,17 @@ export default function WorkflowSection({
         const progressFill = containerRef.current?.querySelector(
           "[data-progress-fill]"
         );
+        const shapeCanvas = containerRef.current?.querySelector(
+          "[data-shape-canvas]"
+        );
 
-        if (!stepContent || !toolsContent || !progressTrack || !progressFill) {
+        if (
+          !stepContent ||
+          !toolsContent ||
+          !progressTrack ||
+          !progressFill ||
+          !shapeCanvas
+        ) {
           return;
         }
 
@@ -87,8 +99,10 @@ export default function WorkflowSection({
           });
         };
 
-        const setProgressVisible = (visible: boolean) => {
-          gsap.set(progressTrack, { opacity: visible ? 1 : 0 });
+        const setStepsChromeVisible = (visible: boolean) => {
+          gsap.set([progressTrack, shapeCanvas], {
+            opacity: visible ? 1 : 0,
+          });
         };
 
         const finish = () => {
@@ -210,14 +224,14 @@ export default function WorkflowSection({
           if (view === "tools") {
             showStepsPanel(false);
             showToolsPanel(true);
-            setProgressVisible(false);
+            setStepsChromeVisible(false);
             revealPanel(toolsContent, finish, true);
             return;
           }
 
           showStepsPanel(true);
           showToolsPanel(false);
-          setProgressVisible(true);
+          setStepsChromeVisible(true);
 
           if (prefersReducedMotion) {
             gsap.set(progressFill, { width: `${currentStep.progress}%` });
@@ -225,13 +239,15 @@ export default function WorkflowSection({
             return;
           }
 
-          gsap.killTweensOf([stepContent, progressFill]);
+          gsap.killTweensOf([stepContent, progressFill, shapeCanvas]);
           gsap.set(progressFill, { width: "0%" });
           gsap.set(stepContent, { opacity: 0, y: 20 });
+          gsap.set(shapeCanvas, { opacity: 0 });
 
           gsap
             .timeline({ onComplete: finish, defaults: { ease: "power3.out" } })
             .to(stepContent, { opacity: 1, y: 0, duration: PROGRESS_DURATION }, 0)
+            .to(shapeCanvas, { opacity: 1, duration: PROGRESS_DURATION }, 0)
             .to(
               progressFill,
               {
@@ -300,8 +316,12 @@ export default function WorkflowSection({
               display: view === "tools" ? "grid" : "block",
             });
 
+            const updatedShape = containerRef.current?.querySelector(
+              "[data-shape-canvas]"
+            );
+
             if (view === "tools") {
-              gsap.to(updatedTrack, {
+              gsap.to([updatedTrack, updatedShape], {
                 opacity: 0,
                 duration: STEP_FADE_OUT,
                 ease: "power2.inOut",
@@ -310,7 +330,7 @@ export default function WorkflowSection({
               return;
             }
 
-            gsap.set(updatedTrack, { opacity: 1 });
+            gsap.set([updatedTrack, updatedShape], { opacity: 1 });
             gsap.killTweensOf([updatedFill, updatedIncoming]);
 
             if (prefersReducedMotion) {
@@ -353,7 +373,7 @@ export default function WorkflowSection({
 
         gsap.killTweensOf(outgoing);
         if (view === "tools" && renderedView === "steps") {
-          gsap.to(progressTrack, {
+          gsap.to([progressTrack, shapeCanvas], {
             opacity: 0,
             duration: STEP_FADE_OUT,
             ease: "power2.inOut",
@@ -390,6 +410,27 @@ export default function WorkflowSection({
       aria-hidden={!isActive}
       data-section="workflow"
     >
+      {view !== "tools" && <GradientBackground4 />}
+      {view === "tools" && (
+        <>
+          <Hero className="absolute inset-0 h-full z-0" aria-hidden="true" />
+          <svg
+            className={styles.toolsLogoWatermark}
+            viewBox="0 0 64 41"
+            aria-hidden="true"
+          >
+            <path
+              fill="#6633ee"
+              d="M31.67,40.119l-11.253,0l0,-8.736c-0,-5.112 2.616,-9.869 6.933,-12.608c4.317,-2.738 9.735,-3.077 14.36,-0.898l4.969,2.341c1.139,0.537 2.473,0.453 3.536,-0.221c1.063,-0.674 1.707,-1.846 1.707,-3.105l-0,-6.08l11.253,0l-0,6.08c0,5.112 -2.616,9.869 -6.933,12.608c-4.317,2.738 -9.735,3.077 -14.36,0.898l-4.969,-2.341c-1.139,-0.537 -2.473,-0.453 -3.536,0.221c-1.063,0.674 -1.707,1.846 -1.707,3.105l0,8.736Z"
+            />
+            <path
+              fill="#6633ee"
+              d="M11.253,30.076l-11.253,-0l0,-4.767c-0,-5.112 2.616,-9.869 6.933,-12.608c4.317,-2.738 9.735,-3.077 14.36,-0.898l4.969,2.341c1.139,0.537 2.473,0.453 3.536,-0.221c1.063,-0.674 1.707,-1.846 1.707,-3.105l-0,-10.818l11.253,0l-0,10.818c0,5.112 -2.616,9.869 -6.933,12.608c-4.317,2.738 -9.735,3.077 -14.36,0.898l-4.969,-2.341c-1.139,-0.537 -2.473,-0.453 -3.536,0.221c-1.063,0.674 -1.707,1.846 -1.707,3.105l0,4.767Z"
+            />
+          </svg>
+        </>
+      )}
+
       <div className={styles.stepContent} data-step-content>
         {step && (
           <>
@@ -398,6 +439,11 @@ export default function WorkflowSection({
           </>
         )}
       </div>
+
+      <WorkflowShapeCanvas
+        stepIndex={stepIndex}
+        isActive={isActive && view === "steps"}
+      />
 
       <WorkflowToolsContent />
 

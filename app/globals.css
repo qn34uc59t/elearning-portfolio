@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +10,35 @@
 
 html,
 body {
-  overflow: hidden;
-  height: 100%;
+  width: 100%;
+  max-width: 100%;
   background: #ffffff;
   color: #000000;
+}
+
+html:not([data-project-page]),
+html:not([data-project-page]) body {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+html[data-project-page] {
+  position: static;
+  overflow-x: clip;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  height: auto;
+}
+
+html[data-project-page] body {
+  position: static;
+  overflow: visible;
+  height: auto;
+  min-height: 100%;
+  overscroll-behavior: none;
 }
 
 :root {
@@ -28,6 +57,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: inherit;
+html:not([data-project-page]) main {
+  height: 100%;
+  overflow: clip;
 }

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { GradientBackground4 } from "@/components/ui/gradient-background-4";
 import styles from "./HeroSection.module.css";
 
 gsap.registerPlugin(useGSAP);
@@ -79,6 +80,7 @@ export default function HeroSection() {
 
   return (
     <section ref={containerRef} className={styles.hero} data-section="hero">
+      <GradientBackground4 />
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>
           {HEADING_WORDS.map((word, index) => (

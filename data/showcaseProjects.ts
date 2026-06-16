@@ -13,16 +13,19 @@ export type ShowcaseProject = {
   id: string;
   title: string;
   description: string;
-  href: string;
+  caseStudyHref?: string;
+  livePreviewUrl?: string;
   media?: ShowcaseProjectMedia;
 };
 
 export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   {
     id: "project-1",
-    title: "Project 1",
-    description: "Just a short description of a project. A sentense max.",
-    href: "#",
+    title: "Gogo TEFL",
+    description:
+      "Eight-hour green-screen video series for a 120-hour online TEFL certification course.",
+    caseStudyHref: "/projects/gogo-tefl",
+    livePreviewUrl: "https://sample1.nvzhn.com/video.mp4",
     media: {
       type: "video",
       src: "/assets/platform.mp4",
@@ -30,35 +33,39 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
   },
   {
     id: "project-2",
-    title: "Project 2",
-    description: "Just a short description of a project. A sentense max.",
-    href: "#",
+    title: "Instructional Video for Managers",
+    description:
+      "Short video lessons for new school managers on ClassIn LMS, hosted in our internal learning hub.",
+    caseStudyHref: "/projects/instructional-video-for-managers",
+    livePreviewUrl: "https://sample2.nvzhn.com/video.mp4",
     media: {
       type: "image",
       src: "/assets/card2.gif",
-      alt: "",
+      alt: "Instructional video preview for ClassIn LMS managers",
     },
   },
   {
     id: "project-3",
-    title: "Project 3",
-    description: "Just a short description of a project. A sentense max.",
-    href: "#",
+    title: "Hand Hygiene",
+    description:
+      "Patient hand-hygiene microlearning for HSO and Accreditation Canada.",
+    caseStudyHref: "/projects/hand-hygiene",
+    livePreviewUrl: "https://sample3.nvzhn.com/",
     media: {
-      type: "image",
-      src: "/assets/card5.jpeg",
-      alt: "",
+      type: "video",
+      src: "/assets/card3.mp4",
     },
   },
   {
     id: "project-4",
-    title: "Project 4",
-    description: "Just a short description of a project. A sentense max.",
-    href: "#",
+    title: "Technical Troubleshooting",
+    description:
+      "Troubleshooting guide for educators handling technical issues during live online classes.",
+    caseStudyHref: "/projects/technical-troubleshooting",
+    livePreviewUrl: "https://sample4.nvzhn.com/",
     media: {
-      type: "image",
-      src: "/assets/card1.png",
-      alt: "",
+      type: "video",
+      src: "/assets/card4.mp4",
     },
   },
 ];

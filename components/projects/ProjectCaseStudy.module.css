@@ -1,0 +1,530 @@
+.page {
+  --pp: 3rem; /* page padding */
+  min-height: 100vh;
+  padding-top: 5.5rem;
+  overflow-x: clip;
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ─── Dark surfaces ─────────────────────────────────────── */
+
+.heroDark,
+.processSection,
+.resultSection,
+.footer {
+  background-color: #000000;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 5%, transparent 0);
+  background-size: 30px 30px;
+  background-attachment: fixed;
+  color: #ffffff;
+}
+
+/* ─── Hero ──────────────────────────────────────────────── */
+
+.hero {
+  padding: 2rem var(--pp) 0;
+}
+
+.heroDark {
+  margin-top: calc(-1 * 5.5rem);
+  padding: calc(5.5rem + 5rem) var(--pp) 4rem;
+}
+
+.heroDark .eyebrow {
+  opacity: 0.6;
+}
+
+.heroDark .tagline {
+  opacity: 0.75;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 2rem;
+  align-items: end;
+  min-height: min(88vh, 52rem);
+}
+
+.heroInnerNoMedia {
+  grid-template-columns: 1fr;
+  min-height: auto;
+}
+
+.heroContent {
+  padding-bottom: 3.5rem;
+}
+
+.eyebrow {
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.tagline {
+  margin-bottom: 2rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  max-width: 26rem;
+  opacity: 0.72;
+}
+
+.livePreview {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.livePreview:hover {
+  opacity: 0.55;
+}
+
+.heroMedia {
+  align-self: stretch;
+  margin-right: calc(-1 * var(--pp));
+  background: #d9d9d9;
+  overflow: hidden;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Shared ─────────────────────────────────────────────── */
+
+.sectionMarker {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.markerIndex {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.3;
+}
+
+.markerLabel {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.markerOnDark .markerIndex { opacity: 0.45; }
+.markerOnDark .markerLabel { opacity: 0.6; }
+
+.body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+.bodyLead {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+}
+
+.body + .body,
+.bodyLead + .body {
+  margin-top: 1rem;
+}
+
+/* ─── Context ────────────────────────────────────────────── */
+
+.contextSection {
+  padding: 5rem var(--pp) 6rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.contextSection > .sectionMarker {
+  margin-bottom: 3rem;
+}
+
+.contextColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contextBody {
+  max-width: 30rem;
+}
+
+.contextDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 0.25rem;
+}
+
+.detailBlock {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.detailBlock:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detailTitle {
+  margin-bottom: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ─── Full-width media break ─────────────────────────────── */
+
+.mediaBreak {
+  width: 100%;
+  height: min(62vh, 40rem);
+  overflow: hidden;
+  background: #d9d9d9;
+}
+
+.mediaBreakImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Process ────────────────────────────────────────────── */
+
+.processSection {
+  padding: 5rem var(--pp) 2rem;
+}
+
+.processHeader {
+  margin-bottom: 3rem;
+}
+
+.processSteps {
+  list-style: none;
+}
+
+.processStep {
+  display: grid;
+  grid-template-columns: 4rem 14rem 1fr;
+  gap: 0 3rem;
+  align-items: baseline;
+  padding: 2.5rem 0;
+  border-top: 1px solid #1e1e1e;
+}
+
+.processStep:last-child {
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.stepNum {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0.35;
+  padding-top: 0.2rem;
+}
+
+.stepTitle {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.stepBody {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  opacity: 0.75;
+  max-width: 34rem;
+}
+
+/* ─── Highlights ─────────────────────────────────────────── */
+
+.highlightsSection {
+  padding: 5rem var(--pp) 6rem;
+}
+
+.highlightsSection > .sectionMarker {
+  margin-bottom: 3rem;
+}
+
+/* first card is wider (col 1+2), cards 2+3 split col 3+4 */
+.highlightsGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 2rem 4rem;
+  align-items: start;
+}
+
+.highlightCard {}
+
+.highlightFeatured {
+  /* first card gets the wide column — title at a larger size */
+}
+
+.highlightFeatured .highlightTitle {
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  letter-spacing: -0.03em;
+}
+
+.highlightTitle {
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Tools ──────────────────────────────────────────────── */
+
+.toolsSection {
+  padding: 4rem var(--pp) 5rem;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.toolsSection > .sectionMarker {
+  margin-bottom: 2.5rem;
+}
+
+.toolsGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.toolItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.toolIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+.toolIcon {
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+}
+
+.toolIconWide {
+  width: 5rem;
+  height: 1.75rem;
+}
+
+.toolName {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* ─── Result ─────────────────────────────────────────────── */
+
+.resultSection {
+  padding: 5rem var(--pp) 0;
+}
+
+.resultSection > .sectionMarker {
+  margin-bottom: 3.5rem;
+}
+
+.resultQuote {
+  margin: 0 auto;
+  font-size: clamp(1.625rem, 2.8vw, 2.375rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  max-width: 44rem;
+  text-align: center;
+  quotes: none;
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4.5rem var(--pp) 5.5rem;
+}
+
+.footerBrand {
+  flex: 0 0 auto;
+}
+
+.footerNav,
+.footerNavSpacer {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.footerNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.25s ease;
+}
+
+.footerNav:hover {
+  opacity: 0.65;
+}
+
+.footerNavPrev {
+  justify-content: flex-start;
+}
+
+.footerNavNext {
+  justify-content: flex-end;
+}
+
+.footerArrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ─── Mobile ─────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .page {
+    --pp: 1.5rem;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 2.5rem;
+  }
+
+  .heroContent {
+    padding-bottom: 0;
+  }
+
+  .heroMedia {
+    height: min(56vw, 18rem);
+    margin-right: calc(-1 * var(--pp));
+    width: calc(100% + var(--pp));
+  }
+
+  .contextColumns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contextBody {
+    max-width: none;
+  }
+
+  .processStep {
+    grid-template-columns: 3rem 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .stepNum {
+    grid-row: 1;
+  }
+
+  .stepTitle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .stepBody {
+    grid-column: 2;
+    grid-row: 2;
+    max-width: none;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .highlightFeatured .highlightTitle {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+  }
+
+  .toolsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .footerBrand {
+    flex: none;
+  }
+
+  .footerNavPrev,
+  .footerNavNext {
+    justify-content: center;
+  }
+}

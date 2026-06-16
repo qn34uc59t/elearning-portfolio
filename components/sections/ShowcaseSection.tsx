@@ -1,8 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import LivePreviewModal from "@/components/LivePreviewModal";
+import { GradientBackground4 } from "@/components/ui/gradient-background-4";
+import { usePortfolioTransition } from "@/context/PortfolioTransitionContext";
 import {
   SHOWCASE_PROJECTS,
   SHOWCASE_PROJECT_COUNT,
@@ -40,7 +45,18 @@ export default function ShowcaseSection({
   const hasEnteredRef = useRef(false);
   const animatingRef = useRef(false);
 
+  const router = useRouter();
+  const { leaveSection } = usePortfolioTransition();
   const counterLabel = `${String(projectIndex + 1).padStart(2, "0")}/${String(SHOWCASE_PROJECT_COUNT).padStart(2, "0")}`;
+  const [preview, setPreview] = useState<{ url: string; title: string } | null>(
+    null
+  );
+
+  const navigateToCaseStudy = (href: string) => {
+    leaveSection("showcase", () => {
+      router.push(href);
+    });
+  };
 
   useGSAP(
     () => {
@@ -195,6 +211,7 @@ export default function ShowcaseSection({
       aria-hidden={!isActive}
       data-section="showcase"
     >
+      <GradientBackground4 position="top" />
       <div
         className={styles.counter}
         data-showcase-counter
@@ -236,9 +253,36 @@ export default function ShowcaseSection({
                 <p className={styles.projectDescription}>
                   {project.description}
                 </p>
-                <a href={project.href} className={styles.exploreLink}>
-                  Explore <span aria-hidden="true">↗</span>
-                </a>
+                {(project.caseStudyHref || project.livePreviewUrl) && (
+                  <div className={styles.actions}>
+                    {project.caseStudyHref && (
+                      <Link
+                        href={project.caseStudyHref}
+                        className={styles.actionLink}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          navigateToCaseStudy(project.caseStudyHref!);
+                        }}
+                      >
+                        Case Study <span aria-hidden="true">→</span>
+                      </Link>
+                    )}
+                    {project.livePreviewUrl && (
+                      <button
+                        type="button"
+                        className={styles.actionButton}
+                        onClick={() =>
+                          setPreview({
+                            url: project.livePreviewUrl!,
+                            title: project.title,
+                          })
+                        }
+                      >
+                        Live Preview <span aria-hidden="true">↗</span>
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </article>
           ))}
@@ -246,8 +290,14 @@ export default function ShowcaseSection({
       </div>
 
       <div className={styles.sectionLabel} aria-hidden="true">
-        Showcase
+        Case studies
       </div>
+
+      <LivePreviewModal
+        url={preview?.url ?? null}
+        title={preview?.title}
+        onClose={() => setPreview(null)}
+      />
     </section>
   );
 }

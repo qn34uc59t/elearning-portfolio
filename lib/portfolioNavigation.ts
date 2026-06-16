@@ -20,7 +20,7 @@ export const INITIAL_VIEW: ViewState = {
 
 export const NAV_ITEMS = [
   { label: "About", id: "about" },
-  { label: "Showcase", id: "showcase" },
+  { label: "Case studies", id: "showcase" },
   { label: "Workflow & Tools", id: "workflow-and-tools" },
   { label: "Contact", id: "contact" },
 ] as const;
@@ -156,6 +156,19 @@ export function parseHash(hash: string): ViewState {
   }
 
   return { ...INITIAL_VIEW };
+}
+
+export function navIdToPortfolioHref(
+  id: NavId,
+  showcaseProject?: number
+): string {
+  const view = navIdToView(id);
+
+  if (id === "showcase" && showcaseProject !== undefined) {
+    view.showcaseProject = showcaseProject;
+  }
+
+  return `/${viewToHash(view)}`;
 }
 
 export function navIdFromView(view: ViewState): NavId {
