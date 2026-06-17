@@ -4,6 +4,12 @@
   gap: 1rem;
 }
 
+.brandLink {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .logo {
   width: 3.5rem;
   height: 3.5rem;

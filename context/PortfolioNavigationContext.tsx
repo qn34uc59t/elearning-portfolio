@@ -22,3 +22,7 @@ export function usePortfolioNavigation() {
 
   return context;
 }
+
+export function useOptionalPortfolioNavigation() {
+  return useContext(PortfolioNavigationContext);
+}
