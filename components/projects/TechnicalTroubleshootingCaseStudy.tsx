@@ -1,5 +1,6 @@
 import type { ProjectCaseStudy as ProjectCaseStudyData } from "@/data/projects/instructional-video-for-managers";
 import BrandMark from "@/components/layout/BrandMark";
+import LinkArrow from "@/components/ui/LinkArrow";
 import ProjectLivePreviewTrigger from "@/components/projects/ProjectLivePreviewTrigger";
 import ProjectsPageShell from "@/components/projects/ProjectsPageShell";
 import { getAdjacentProjects } from "@/lib/projects";
@@ -150,9 +151,7 @@ export default function TechnicalTroubleshootingCaseStudy({
               href={`/projects/${adjacent.previous.slug}`}
               className={`${styles.footerNav} ${styles.footerNavPrev}`}
             >
-              <span className={styles.footerArrow} aria-hidden="true">
-                ←
-              </span>
+              <LinkArrow direction="back" size="large" />
               Previous project
             </Link>
           ) : (
@@ -160,9 +159,7 @@ export default function TechnicalTroubleshootingCaseStudy({
               href={navIdToPortfolioHref("showcase", project.showcaseIndex)}
               className={`${styles.footerNav} ${styles.footerNavPrev}`}
             >
-              <span className={styles.footerArrow} aria-hidden="true">
-                ←
-              </span>
+              <LinkArrow direction="back" size="large" />
               Go back
             </Link>
           )}
@@ -177,9 +174,7 @@ export default function TechnicalTroubleshootingCaseStudy({
               className={`${styles.footerNav} ${styles.footerNavNext}`}
             >
               Next project
-              <span className={styles.footerArrow} aria-hidden="true">
-                →
-              </span>
+              <LinkArrow size="large" />
             </Link>
           ) : (
             <span className={styles.footerNavSpacer} aria-hidden="true" />

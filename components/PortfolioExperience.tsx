@@ -33,9 +33,6 @@ import {
   type ViewState,
 } from "@/lib/portfolioNavigation";
 import {
-  SECTION_FADE_IN_DURATION,
-  SECTION_FADE_OUT_DURATION,
-  SECTION_FADE_EASE,
   consumePortfolioEnterSection,
   runSectionFadeIn,
   runSectionFadeOut,
@@ -57,12 +54,21 @@ function getSectionContentElement(
 
 function setLayerVisibility(
   container: HTMLDivElement | null,
-  activeSection: SectionId
+  activeSection: SectionId,
+  revealActive = false
 ) {
   (["hero", "showcase", "workflow", "contact"] as const).forEach((section) => {
     const content = getSectionContentElement(container, section);
     if (!content) return;
-    gsap.set(content, { opacity: section === activeSection ? 1 : 0 });
+
+    if (section === activeSection) {
+      if (revealActive) {
+        gsap.set(content, { opacity: 1 });
+      }
+      return;
+    }
+
+    gsap.set(content, { opacity: 0 });
   });
 }
 
@@ -114,32 +120,28 @@ export default function PortfolioExperience() {
         return false;
       }
 
-      gsap.to(outgoing, {
-        opacity: 0,
-        duration: SECTION_FADE_OUT_DURATION,
-        ease: SECTION_FADE_EASE,
-        onComplete: () => {
-          viewRef.current = next;
-          setView(next);
+      runSectionFadeOut(outgoing, () => {
+        viewRef.current = next;
+        setView(next);
 
-          requestAnimationFrame(() => {
-            const incoming = getSectionContentElement(
-              containerRef.current,
-              next.section
-            );
+        requestAnimationFrame(() => {
+          const incoming = getSectionContentElement(
+            containerRef.current,
+            next.section
+          );
 
-            if (!incoming) {
+          if (!incoming) {
+            endNavigation();
+            return;
+          }
+
+          gsap.set(incoming, { opacity: 0 });
+          runSectionFadeIn(incoming, () => {
+            if (next.section !== "workflow") {
               endNavigation();
-              return;
             }
-
-            runSectionFadeIn(incoming, () => {
-              if (next.section !== "workflow") {
-                endNavigation();
-              }
-            });
           });
-        },
+        });
       });
 
       return true;
@@ -377,16 +379,17 @@ export default function PortfolioExperience() {
 
     viewRef.current = restored;
     setView(restored);
-    setLayerVisibility(containerRef.current, restored.section);
-
-    if (
+    const willEnterFade =
       enterSection &&
       enterSection === restored.section &&
       (enterSection === "hero" ||
         enterSection === "showcase" ||
         enterSection === "workflow" ||
-        enterSection === "contact")
-    ) {
+        enterSection === "contact");
+
+    setLayerVisibility(containerRef.current, restored.section, !willEnterFade);
+
+    if (willEnterFade) {
       pendingEnterFadeRef.current = enterSection;
       const incoming = getSectionContentElement(
         containerRef.current,

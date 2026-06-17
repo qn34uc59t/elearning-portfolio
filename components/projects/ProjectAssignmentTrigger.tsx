@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import LinkArrow from "@/components/ui/LinkArrow";
 import LivePreviewModal from "@/components/LivePreviewModal";
 import styles from "./ProjectLivePreviewTrigger.module.css";
 
@@ -24,7 +25,7 @@ export default function ProjectAssignmentTrigger({
         className={className ?? styles.trigger}
         onClick={() => setOpenUrl(url)}
       >
-        Original assignment <span aria-hidden="true">↗</span>
+        Original assignment <LinkArrow />
       </button>
 
       <LivePreviewModal

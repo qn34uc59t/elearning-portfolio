@@ -102,11 +102,11 @@ export const instructionalVideoForManagers: ProjectCaseStudy = {
     },
     {
       name: "Illustrator",
-      icon: "/assets/tools/illustrator.svg",
+      icon: "/assets/tools/illustrator.png",
     },
     {
       name: "ElevenLabs",
-      icon: "/assets/tools/elevenlabs.svg",
+      icon: "/assets/tools/elevenlabs-light.svg",
     },
     {
       name: "ClassIn",

@@ -85,46 +85,29 @@ const Noise: React.FC<NoiseProps> = ({
   );
 };
 
-type BackgroundVariant = "blue" | "purple";
-
-const VARIANT_STYLES: Record<
-  BackgroundVariant,
-  { spotlight: string; gridColor: string }
-> = {
-  blue: {
-    spotlight:
-      "radial-gradient(circle 620px at 50% 200px, rgba(37, 99, 235, 0.35), transparent 70%)",
-    gridColor: "#94a3b81f",
-  },
-  purple: {
-    spotlight:
-      "radial-gradient(circle 620px at 50% 200px, rgba(124, 58, 237, 0.35), transparent 70%)",
-    gridColor: "#a78bfa1f",
-  },
-};
+const SPOTLIGHT =
+  "radial-gradient(circle 620px at 50% 200px, rgba(37, 99, 235, 0.35), transparent 70%)";
+const GRID_COLOR = "#94a3b81f";
 
 type BackgroundSnippetsNoiseEffect11Props = {
-  variant?: BackgroundVariant;
   className?: string;
 };
 
 /** Grid spotlight + noise (matches 21st.dev live preview). */
 export default function BackgroundSnippetsNoiseEffect11({
-  variant = "blue",
   className,
 }: BackgroundSnippetsNoiseEffect11Props) {
-  const { spotlight, gridColor } = VARIANT_STYLES[variant];
 
   return (
     <div
       className={cn("bg-slate-950", className)}
       aria-hidden="true"
     >
-      <div className="absolute inset-0" style={{ background: spotlight }} />
+      <div className="absolute inset-0" style={{ background: SPOTLIGHT }} />
       <div
         className="pointer-events-none absolute inset-0 bg-[size:22px_22px] [mask-image:radial-gradient(ellipse_85%_55%_at_50%_15%,#000_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_85%_55%_at_50%_15%,#000_75%,transparent_100%)] [mask-repeat:no-repeat] [-webkit-mask-repeat:no-repeat]"
         style={{
-          backgroundImage: `linear-gradient(to right, ${gridColor} 1px, transparent 1px), linear-gradient(to bottom, ${gridColor} 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(to right, ${GRID_COLOR} 1px, transparent 1px), linear-gradient(to bottom, ${GRID_COLOR} 1px, transparent 1px)`,
         }}
       />
       <Noise patternRefreshInterval={2} patternAlpha={18} />

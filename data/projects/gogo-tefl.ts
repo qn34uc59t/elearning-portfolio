@@ -56,15 +56,15 @@ export const gogoTefl: ProjectCaseStudy = {
   tools: [
     {
       name: "Notion",
-      icon: "/assets/tools/notion.svg",
+      icon: "/assets/tools/notion-light.svg",
     },
     {
       name: "Final Cut Pro",
-      icon: "/assets/tools/final-cut-pro.svg",
+      icon: "/assets/tools/final-cut-pro.png",
     },
     {
       name: "Camtasia",
-      icon: "/assets/tools/camtasia.svg",
+      icon: "/assets/tools/camtasia.webp",
     },
     {
       name: "Captions",

@@ -51,11 +51,11 @@ export const technicalTroubleshooting: ProjectCaseStudy = {
   tools: [
     {
       name: "Storyline 360",
-      icon: "/assets/tools/storyline.svg",
+      icon: "/assets/tools/articulate.png",
     },
     {
       name: "Illustrator",
-      icon: "/assets/tools/illustrator.svg",
+      icon: "/assets/tools/illustrator.png",
     },
   ],
   result: [

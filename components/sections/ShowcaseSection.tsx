@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import LinkArrow from "@/components/ui/LinkArrow";
 import LivePreviewModal from "@/components/LivePreviewModal";
 import { usePortfolioTransition } from "@/context/PortfolioTransitionContext";
 import { markProjectEnterFromShowcase } from "@/lib/sectionTransition";
@@ -263,7 +264,7 @@ export default function ShowcaseSection({
                           navigateToCaseStudy(project.caseStudyHref!);
                         }}
                       >
-                        Case Study <span aria-hidden="true">→</span>
+                        Case Study <LinkArrow />
                       </Link>
                     )}
                     {project.livePreviewUrl && (
@@ -277,7 +278,7 @@ export default function ShowcaseSection({
                           })
                         }
                       >
-                        Live Preview <span aria-hidden="true">↗</span>
+                        Live Preview <LinkArrow />
                       </button>
                     )}
                   </div>

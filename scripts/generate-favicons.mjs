@@ -1,55 +1,41 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { Resvg } from "@resvg/resvg-js";
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import sharp from "sharp";
-import toIco from "to-ico";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.join(__dirname, "..");
-const publicDir = path.join(rootDir, "public");
-const iconSvg = fs.readFileSync(
-  path.join(publicDir, "logo_nvzhn-icon.svg"),
-  "utf8",
-);
+const publicDir = join(import.meta.dirname, "..", "public");
+const paths = [...readFileSync(join(publicDir, "favicon.svg"), "utf8").matchAll(
+  /<path d="[^"]+"\/>/g,
+)].map((match) => match[0]);
 
-function renderIcon(size, fill) {
-  const svg = iconSvg.replace('fill="#1f1f1f"', `fill="${fill}"`);
-  const resvg = new Resvg(svg, {
-    fitTo: { mode: "width", value: size },
-    background: "transparent",
-  });
-  return resvg.render().asPng();
+const pathMarkup = paths.join("\n    ");
+
+const variants = [
+  { name: "favicon-light", fill: "#1f1f1f" },
+  { name: "favicon-dark", fill: "#fafafa" },
+];
+
+for (const { name, fill } of variants) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g transform="translate(0 11.5)" fill="${fill}">
+    ${pathMarkup}
+  </g>
+</svg>`;
+
+  writeFileSync(join(publicDir, `${name}.svg`), svg);
+
+  for (const size of [16, 32]) {
+    const buffer = await sharp(Buffer.from(svg)).resize(size, size).png().toBuffer();
+    writeFileSync(join(publicDir, `${name}-${size}x${size}.png`), buffer);
+  }
 }
 
-const icon16 = await sharp(renderIcon(16, "#1f1f1f")).png().toBuffer();
-const icon32 = await sharp(renderIcon(32, "#1f1f1f")).png().toBuffer();
-const apple = await sharp(renderIcon(128, "#1f1f1f"))
-  .extend({
-    top: 26,
-    bottom: 26,
-    left: 26,
-    right: 26,
-    background: { r: 250, g: 250, b: 250, alpha: 1 },
-  })
-  .resize(180, 180)
-  .png()
-  .toBuffer();
-const logo = await sharp(renderIcon(112, "#1f1f1f")).png().toBuffer();
-const logoLight = await sharp(renderIcon(112, "#fafafa")).png().toBuffer();
+const lightPngs = [16, 32].map((size) =>
+  readFileSync(join(publicDir, `favicon-light-${size}x${size}.png`)),
+);
 
-await sharp(icon16).toFile(path.join(publicDir, "favicon-16x16.png"));
-await sharp(icon32).toFile(path.join(publicDir, "favicon-32x32.png"));
-await sharp(apple).toFile(path.join(publicDir, "apple-touch-icon.png"));
-await sharp(logo).toFile(path.join(publicDir, "logo_nvzhn.png"));
-await sharp(logo).toFile(path.join(publicDir, "logo_black.png"));
-await sharp(logoLight).toFile(path.join(publicDir, "logo_nvzhn-light.png"));
-
-const faviconIco = await toIco([
-  await sharp(icon16).resize(16, 16).png().toBuffer(),
-  await sharp(icon32).resize(32, 32).png().toBuffer(),
-]);
-fs.writeFileSync(path.join(publicDir, "favicon.ico"), faviconIco);
-fs.writeFileSync(path.join(rootDir, "assets", "favicon.png"), icon32);
-
-console.log("Generated favicon assets");
+try {
+  const toIco = (await import("to-ico")).default;
+  writeFileSync(join(publicDir, "favicon.ico"), await toIco(lightPngs));
+} catch {
+  console.warn("Skipping favicon.ico generation (install to-ico to enable).");
+}

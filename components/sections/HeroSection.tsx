@@ -3,6 +3,9 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { usePortfolioNavigation } from "@/context/PortfolioNavigationContext";
+import LinkArrow from "@/components/ui/LinkArrow";
+import { navIdToPortfolioHref } from "@/lib/portfolioNavigation";
 import styles from "./HeroSection.module.css";
 
 gsap.registerPlugin(useGSAP);
@@ -10,12 +13,14 @@ gsap.registerPlugin(useGSAP);
 const HEADING_WORDS = ["Hey,", "I'm", "Illia", "👋"];
 
 const PARAGRAPH_LINES = [
-  "I've been building learning experiences from the ground up since 2019, writing, designing, animating, and shipping courses end-to-end.",
-  "I am rooted in the heart of Vancouver, BC, Canada 🇨🇦.",
+  "I create high-impact learning content that sticks.",
+  "Bridging the gap between business goals and learner success",
+  "by crafting engaging materials from initial strategy to final delivery.",
 ];
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const { goToNav } = usePortfolioNavigation();
 
   useGSAP(
     () => {
@@ -64,6 +69,16 @@ export default function HeroSection() {
           "-=0.2"
         )
         .to(
+          "[data-reveal='section-nav']",
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power4.out",
+          },
+          "-=0.35"
+        )
+        .to(
           "[data-reveal='section-label']",
           {
             opacity: 1,
@@ -109,6 +124,34 @@ export default function HeroSection() {
             </span>
           ))}
         </p>
+
+        <nav
+          className={styles.actions}
+          data-reveal="section-nav"
+          data-motion="slide-up"
+          aria-label="Explore the portfolio"
+        >
+          <a
+            href={navIdToPortfolioHref("showcase")}
+            className={styles.actionLink}
+            onClick={(event) => {
+              event.preventDefault();
+              goToNav("showcase");
+            }}
+          >
+            Explore my portfolio <LinkArrow />
+          </a>
+          <a
+            href={navIdToPortfolioHref("workflow-and-tools")}
+            className={styles.actionLink}
+            onClick={(event) => {
+              event.preventDefault();
+              goToNav("workflow-and-tools");
+            }}
+          >
+            How I work <LinkArrow />
+          </a>
+        </nav>
       </div>
 
       <div

@@ -46,15 +46,15 @@ Case study pages use the shared `SiteHeader` via `ProjectsPageShell`.
 
 ---
 
-## 2. Purple grid background on dark sections
+## 2. Blue grid background on dark sections
 
-Dark sections on case study pages use the same **grid + noise + spotlight** background as the main portfolio, but in **purple** instead of blue.
+Dark sections on case study pages use the same **grid + noise + spotlight** background as the main portfolio.
 
 ### How it works
 
 - **Component:** `components/ui/background-snippets-noise-effect11.tsx`
-- **Project pages:** `ProjectsPageShell` renders the purple variant inside the fade-in wrapper so transparent dark sections composite correctly (opacity animation on an outer wrapper would otherwise turn them solid black).
-- **Main portfolio:** `SiteBackgroundLayer` renders the blue variant at the root layout level.
+- **Project pages:** `ProjectsPageShell` renders the background inside the fade-in wrapper so transparent dark sections composite correctly (opacity animation on an outer wrapper would otherwise turn them solid black).
+- **Main portfolio:** `SiteBackgroundLayer` renders the same background at the root layout level.
 - Dark sections (hero, process, result, closing, footer) use `background: transparent` so the grid shows through.
 - Light content sections keep `background: var(--color-white)` so body copy stays readable.
 
@@ -86,8 +86,8 @@ Any new dark section on a case study page must stay transparent. Do not add a so
 ### Notes
 
 - Base color: `#020617` (slate-950), matching the main site.
-- Purple spotlight: `rgba(124, 58, 237, 0.35)` at the top center.
-- Grid lines: `#a78bfa1f` with a top fade mask.
+- Blue spotlight: `rgba(37, 99, 235, 0.35)` at the top center.
+- Grid lines: `#94a3b81f` with a top fade mask.
 - Animated noise overlay matches the main portfolio background.
 
 ---
