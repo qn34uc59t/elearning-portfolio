@@ -63,11 +63,13 @@ export default function HandHygieneCaseStudy({ project }: HandHygieneCaseStudyPr
             </h1>
             <p className={styles.tagline}>{project.tagline}</p>
             <div className={styles.heroActions}>
-              <ProjectLivePreviewTrigger
-                url={project.livePreviewUrl}
-                title={project.title}
-                className={styles.livePreview}
-              />
+              {project.livePreviewUrl ? (
+                <ProjectLivePreviewTrigger
+                  url={project.livePreviewUrl}
+                  title={project.title}
+                  className={styles.livePreview}
+                />
+              ) : null}
               {project.assignmentPdfUrl ? (
                 <ProjectAssignmentTrigger
                   url={project.assignmentPdfUrl}

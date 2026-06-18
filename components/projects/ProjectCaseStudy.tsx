@@ -82,11 +82,13 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
               )}
             </h1>
             <p className={styles.tagline}>{project.tagline}</p>
-            <ProjectLivePreviewTrigger
-              url={project.livePreviewUrl}
-              title={project.title}
-              className={styles.livePreview}
-            />
+            {project.livePreviewUrl ? (
+              <ProjectLivePreviewTrigger
+                url={project.livePreviewUrl}
+                title={project.title}
+                className={styles.livePreview}
+              />
+            ) : null}
           </div>
 
           {!project.hideHeroMedia && (
