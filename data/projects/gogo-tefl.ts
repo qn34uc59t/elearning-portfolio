@@ -56,7 +56,7 @@ export const gogoTefl: ProjectCaseStudy = {
   tools: [
     {
       name: "Notion",
-      icon: "/assets/tools/notion-light.svg",
+      icon: "/assets/tools/notion.svg",
     },
     {
       name: "Final Cut Pro",
@@ -74,13 +74,11 @@ export const gogoTefl: ProjectCaseStudy = {
   result: [
     "The course is finished and ready to launch: written modules, assessments, and eight hours of captioned video integrated into one certification. Learners move through a text-led program with on-camera instruction where it adds the most value.",
   ],
-  // Placeholder preview — swap for the real demo URL once demo access is ready.
-  livePreviewUrl: "https://sample1.nvzhn.com/video.mp4",
+  livePreviewUrl: "/assets/platform.mp4",
   hideHeroMedia: true,
   heroTheme: "dark",
   media: {
-    type: "image",
-    src: "/assets/projects/gogo-tefl/hero.svg",
-    alt: "Gogo TEFL course video series preview",
+    type: "video",
+    src: "/assets/1.1_vid.mp4",
   },
 };

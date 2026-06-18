@@ -25,7 +25,6 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     description:
       "Eight-hour green-screen video series for a 120-hour online TEFL certification course.",
     caseStudyHref: "/projects/gogo-tefl",
-    livePreviewUrl: "https://sample1.nvzhn.com/video.mp4",
     media: {
       type: "video",
       src: "/assets/platform.mp4",

@@ -192,6 +192,16 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <SectionMarker index="05" label="Result" className={styles.markerOnDark} />
 
         <blockquote className={styles.resultQuote}>{project.result[0]}</blockquote>
+
+        {project.livePreviewUrl ? (
+          <div className={styles.resultActions}>
+            <ProjectLivePreviewTrigger
+              url={project.livePreviewUrl}
+              title={project.title}
+              className={styles.livePreview}
+            />
+          </div>
+        ) : null}
       </section>
 
       <footer className={styles.footer}>

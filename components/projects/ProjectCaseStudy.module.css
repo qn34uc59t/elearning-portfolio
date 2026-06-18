@@ -382,7 +382,7 @@
 /* ─── Result ─────────────────────────────────────────────── */
 
 .resultSection {
-  padding: 5rem var(--pp) 0;
+  padding: 5rem var(--pp) 7rem;
 }
 
 .resultSection > .sectionMarker {
@@ -398,6 +398,12 @@
   max-width: 44rem;
   text-align: center;
   quotes: none;
+}
+
+.resultActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
 }
 
 /* ─── Footer ─────────────────────────────────────────────── */

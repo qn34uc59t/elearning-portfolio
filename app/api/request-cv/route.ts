@@ -3,6 +3,18 @@ import { isWorkEmail, WORK_EMAIL_ERROR } from "@/lib/workEmail";
 
 const CV_REQUEST_TO = "hello@nvzhn.com";
 
+/** Vercel env values are literal — pasted quotes are not stripped like in .env files. */
+function stripEnvQuotes(value: string): string {
+  const trimmed = value.trim();
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1).trim();
+  }
+  return trimmed;
+}
+
 type RequestBody = {
   name?: string;
   company?: string;
@@ -33,7 +45,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: WORK_EMAIL_ERROR }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = stripEnvQuotes(process.env.RESEND_API_KEY ?? "");
   if (!apiKey) {
     console.error("RESEND_API_KEY is not configured.");
     return NextResponse.json(
@@ -42,7 +54,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const from = process.env.RESEND_FROM ?? "Portfolio <onboarding@resend.dev>";
+  const from =
+    stripEnvQuotes(process.env.RESEND_FROM ?? "") ||
+    "Portfolio <onboarding@resend.dev>";
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",

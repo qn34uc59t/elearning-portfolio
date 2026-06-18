@@ -31,7 +31,7 @@ export type ProjectCaseStudy = {
   highlights: ProjectHighlight[];
   tools: ProjectTool[];
   result: string[];
-  livePreviewUrl: string;
+  livePreviewUrl?: string;
   assignmentPdfUrl?: string;
   media: ShowcaseProjectMedia;
   hideHeroMedia?: boolean;

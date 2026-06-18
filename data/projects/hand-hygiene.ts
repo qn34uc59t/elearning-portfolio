@@ -51,7 +51,7 @@ export const handHygiene: ProjectCaseStudy = {
   tools: [
     {
       name: "Rise 360",
-      icon: "/assets/tools/articulate.png",
+      icon: "/assets/tools/rise.svg",
     },
     {
       name: "Illustrator",

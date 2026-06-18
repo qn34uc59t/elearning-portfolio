@@ -26,6 +26,23 @@ function SectionHead({ label, dark }: { label: string; dark?: boolean }) {
   );
 }
 
+function SectionMarker({
+  index,
+  label,
+  className,
+}: {
+  index: string;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <p className={`${styles.sectionMarker} ${className ?? ""}`}>
+      <span className={styles.markerIndex}>{index}</span>
+      <span className={styles.markerLabel}>{label}</span>
+    </p>
+  );
+}
+
 export default function TechnicalTroubleshootingCaseStudy({
   project,
 }: TechnicalTroubleshootingCaseStudyProps) {
@@ -124,16 +141,19 @@ export default function TechnicalTroubleshootingCaseStudy({
           </ol>
         </section>
 
-        <section className={styles.toolsBar}>
-          <span className={styles.toolsLabel}>Tools</span>
-          <ul className={styles.toolsRow}>
+        <section className={styles.toolsSection}>
+          <SectionMarker index="04" label="Tools" />
+
+          <ul className={styles.toolsGrid}>
             {project.tools.map((tool) => (
-              <li key={tool.name} className={styles.tool}>
-                <img
-                  src={tool.icon}
-                  alt=""
-                  className={`${styles.toolIcon} ${tool.wide ? styles.toolIconWide : ""}`}
-                />
+              <li key={tool.name} className={styles.toolItem}>
+                <div className={styles.toolIconWrap}>
+                  <img
+                    src={tool.icon}
+                    alt=""
+                    className={`${styles.toolIcon} ${tool.wide ? styles.toolIconWide : ""}`}
+                  />
+                </div>
                 <span className={styles.toolName}>{tool.name}</span>
               </li>
             ))}
@@ -143,6 +163,15 @@ export default function TechnicalTroubleshootingCaseStudy({
         <section className={styles.closing}>
           <SectionHead label="Result" dark />
           <p className={styles.closingText}>{project.result[0]}</p>
+          {project.livePreviewUrl ? (
+            <div className={styles.resultActions}>
+              <ProjectLivePreviewTrigger
+                url={project.livePreviewUrl}
+                title={project.title}
+                className={styles.livePreview}
+              />
+            </div>
+          ) : null}
         </section>
 
         <footer className={styles.footer}>

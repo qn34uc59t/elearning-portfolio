@@ -27,6 +27,43 @@ function SectionHead({ label, dark }: { label: string; dark?: boolean }) {
   );
 }
 
+function SectionMarker({
+  index,
+  label,
+  className,
+}: {
+  index: string;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <p className={`${styles.sectionMarker} ${className ?? ""}`}>
+      <span className={styles.markerIndex}>{index}</span>
+      <span className={styles.markerLabel}>{label}</span>
+    </p>
+  );
+}
+
+function CaseStudyVideo({
+  src,
+  className,
+}: {
+  src: string;
+  className?: string;
+}) {
+  return (
+    <video
+      className={className}
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+    />
+  );
+}
+
 export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
   const adjacent = getAdjacentProjects(project.slug);
   const titleLines = project.titleLines ?? [project.title];
@@ -47,11 +84,6 @@ export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
                 ))}
               </h1>
               <p className={styles.tagline}>{project.tagline}</p>
-              <ProjectLivePreviewTrigger
-                url={project.livePreviewUrl}
-                title={project.title}
-                className={styles.livePreview}
-              />
             </div>
           </div>
         </header>
@@ -66,11 +98,18 @@ export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
 
         {/* ── Figure 01 ── */}
         <figure className={styles.figure}>
-          <img
-            className={styles.figureImg}
-            src={project.media.src}
-            alt={project.media.type === "image" ? project.media.alt ?? "" : ""}
-          />
+          {project.media.type === "video" ? (
+            <CaseStudyVideo
+              className={styles.figureImg}
+              src={project.media.src}
+            />
+          ) : (
+            <img
+              className={styles.figureImg}
+              src={project.media.src}
+              alt={project.media.alt ?? ""}
+            />
+          )}
         </figure>
 
         <section className={styles.section}>
@@ -115,17 +154,15 @@ export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
         {/* ── Figure pair ── */}
         <div className={styles.figurePair}>
           <figure className={styles.figurePairItem}>
-            <img
-              className={styles.figPortrait}
-              src="/assets/projects/gogo-tefl/portrait.svg"
-              alt=""
+            <CaseStudyVideo
+              className={styles.figSquare}
+              src="/assets/1_vid.mp4"
             />
           </figure>
           <figure className={styles.figurePairItem}>
-            <img
-              className={styles.figLandscape}
-              src="/assets/projects/gogo-tefl/card.svg"
-              alt=""
+            <CaseStudyVideo
+              className={styles.figSquare}
+              src="/assets/1.2_vid.mp4"
             />
           </figure>
         </div>
@@ -143,16 +180,19 @@ export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
         </section>
 
         {/* ── Tools ── */}
-        <section className={styles.toolsBar}>
-          <span className={styles.toolsLabel}>Tools</span>
-          <ul className={styles.toolsRow}>
+        <section className={styles.toolsSection}>
+          <SectionMarker index="04" label="Tools" />
+
+          <ul className={styles.toolsGrid}>
             {project.tools.map((tool) => (
-              <li key={tool.name} className={styles.tool}>
-                <img
-                  src={tool.icon}
-                  alt=""
-                  className={`${styles.toolIcon} ${tool.wide ? styles.toolIconWide : ""}`}
-                />
+              <li key={tool.name} className={styles.toolItem}>
+                <div className={styles.toolIconWrap}>
+                  <img
+                    src={tool.icon}
+                    alt=""
+                    className={`${styles.toolIcon} ${tool.wide ? styles.toolIconWide : ""}`}
+                  />
+                </div>
                 <span className={styles.toolName}>{tool.name}</span>
               </li>
             ))}
@@ -162,6 +202,15 @@ export default function GogoTeflCaseStudy({ project }: GogoTeflCaseStudyProps) {
         <section className={styles.closing}>
           <SectionHead label="Result" dark />
           <p className={styles.closingText}>{project.result[0]}</p>
+          {project.livePreviewUrl ? (
+            <div className={styles.resultActions}>
+              <ProjectLivePreviewTrigger
+                url={project.livePreviewUrl}
+                title={project.title}
+                className={styles.livePreview}
+              />
+            </div>
+          ) : null}
         </section>
 
         {/* ── Footer ── */}
