@@ -15,13 +15,3 @@
   width: 100%;
   height: 100%;
 }
-
-@media (max-width: 900px) {
-  .shapeCanvas {
-    top: 22%;
-    left: 50%;
-    width: min(40vw, 9rem);
-    height: min(40vw, 9rem);
-    transform: translate(-50%, -50%);
-  }
-}
