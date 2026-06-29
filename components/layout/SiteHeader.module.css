@@ -5,6 +5,10 @@
   transition: color 0.55s ease;
 }
 
+.headerBar {
+  display: contents;
+}
+
 .headerPersistent {
   position: fixed;
   top: 0;
@@ -59,7 +63,10 @@
 
 .headerPersistent > *,
 .headerPersistent .navLink,
-.headerPersistent .cvRequest {
+.headerPersistent .cvRequest,
+.headerPersistent .menuToggle,
+.headerPersistent .mobileMenuLink,
+.headerPersistent .mobileMenuCv {
   pointer-events: auto;
 }
 
@@ -121,6 +128,15 @@
   opacity: 1;
 }
 
+.menuToggle {
+  display: none;
+}
+
+.menuBackdrop,
+.mobileMenu {
+  display: none;
+}
+
 .headerDark {
   color: var(--color-white);
 }
@@ -128,20 +144,151 @@
 @media (max-width: 900px) {
   .header {
     padding: 1.5rem;
+    padding-top: max(1.5rem, env(safe-area-inset-top, 0px));
+  }
+
+  .headerBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .nav {
-    position: static;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+    display: none;
   }
 
-  .navLinks {
-    gap: 1.25rem;
+  .menuToggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: -0.5rem -0.5rem -0.5rem 0;
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    color: inherit;
+    cursor: pointer;
   }
 
-  .cvRequest {
-    margin-left: 0;
+  .menuToggleBar {
+    display: block;
+    width: 1.375rem;
+    height: 2px;
+    margin-left: auto;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .menuToggle[aria-expanded="true"] .menuToggleBar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menuToggle[aria-expanded="true"] .menuToggleBar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menuToggle[aria-expanded="true"] .menuToggleBar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .menuBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    border: none;
+    background: rgba(2, 6, 23, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .menuBackdropVisible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    width: min(18rem, 88vw);
+    height: 100%;
+    height: 100dvh;
+    padding: max(5.5rem, calc(env(safe-area-inset-top, 0px) + 4.5rem)) 1.5rem
+      max(2rem, env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 14, 28, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform: translateX(100%);
+    transition: transform 0.32s ease;
+    pointer-events: none;
+  }
+
+  .headerDark .mobileMenu {
+    color: var(--color-white);
+  }
+
+  .mobileMenuOpen {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .mobileMenuList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobileMenuLink {
+    display: block;
+    padding: 0.85rem 0;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.45;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobileMenuLinkActive,
+  .mobileMenuLink:hover {
+    opacity: 1;
+  }
+
+  .mobileMenuCv {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    margin-top: auto;
+    border: none;
+    background: transparent;
+    padding: 0.85rem 0;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobileMenuCv:hover {
+    opacity: 1;
   }
 }

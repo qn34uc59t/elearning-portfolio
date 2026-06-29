@@ -461,8 +461,8 @@ export default function PortfolioExperience() {
         tolerance: 40,
         preventDefault: true,
         debounce: true,
-        onDown: () => navigate(1),
-        onUp: () => navigate(-1),
+        onDown: () => navigate(-1),
+        onUp: () => navigate(1),
       });
 
       observerRef.current = observer;
