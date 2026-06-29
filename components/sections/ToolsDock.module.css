@@ -102,10 +102,7 @@
 
 @media (max-width: 900px) {
   .dockWrap {
-    left: 1.5rem;
-    right: 1.5rem;
-    bottom: clamp(9rem, 24vw, 12rem);
-    font-size: clamp(0.625rem, 2.8vw, 0.875rem);
+    display: none;
   }
 }
 

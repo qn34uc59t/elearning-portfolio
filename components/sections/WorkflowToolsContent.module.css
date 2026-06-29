@@ -21,12 +21,20 @@
   min-width: 0;
 }
 
+.accordionTrigger {
+  display: none;
+}
+
 .toolTitle {
   margin-bottom: 1rem;
   font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
+}
+
+.toolBody {
+  display: block;
 }
 
 .toolDescription {
@@ -53,12 +61,90 @@
 }
 
 @media (max-width: 900px) {
+  .toolsPanel {
+    position: relative;
+    inset: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    pointer-events: auto;
+  }
+
   .toolsGrid {
-    top: 34%;
-    left: 1.5rem;
-    right: 1.5rem;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
     transform: none;
+    margin-top: 0.75rem;
+  }
+
+  .toolTitle {
+    display: none;
+  }
+
+  .accordionTrigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 1rem 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .accordionTitle {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .accordionIcon {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    opacity: 0.55;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .toolColumnOpen .accordionIcon {
+    transform: rotate(-135deg);
+    opacity: 0.85;
+  }
+
+  .toolBody {
+    display: none;
+    padding-bottom: 1.25rem;
+  }
+
+  .toolColumnOpen .toolBody {
+    display: block;
+  }
+
+  .toolDescription {
+    max-width: none;
+    min-height: 0;
+    margin-bottom: 0.85rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .toolList {
+    font-size: 0.9375rem;
+    line-height: 1.6;
   }
 }
